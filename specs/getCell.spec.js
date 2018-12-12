@@ -1,4 +1,4 @@
-const { getCell } = require('../board');
+const { getCell } = require('..');
 
 describe('getCell', () => {
     it('Should get the cell state from the board at 2,0', () => {

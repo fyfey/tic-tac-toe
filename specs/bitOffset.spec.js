@@ -1,4 +1,4 @@
-const { bitOffset } = require('../board');
+const { bitOffset } = require('..');
 
 describe('bitOffset', () => {
     it('Should get the bit offset for a grid reference', () => {

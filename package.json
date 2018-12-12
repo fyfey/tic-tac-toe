@@ -2,10 +2,14 @@
   "name": "tic-tac-toe",
   "version": "1.0.0",
   "description": "",
-  "main": "board.js",
+  "main": "dist/tic-tac-toe.cjs.js",
+  "module": "dist/tic-tac-toe.esm.js",
+  "browser": "dist/tic-tac-toe.umd.js",
   "scripts": {
     "test": "node specs/run",
-    "test:watch": "nodemon specs/run"
+    "test:watch": "nodemon specs/run",
+    "build": "rollup -c",
+    "watch": "rollup -c --watch"
   },
   "keywords": [],
   "author": "",
@@ -14,5 +18,8 @@
     "jasmine": "^3.3.1",
     "jasmine-console-reporter": "^3.1.0",
     "nodemon": "^1.18.8"
+  },
+  "dependencies": {
+    "rollup": "^0.67.4"
   }
 }

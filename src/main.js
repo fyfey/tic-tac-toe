@@ -61,6 +61,37 @@ function setCell(board, x, y, state) {
     return board &~ (0x03 << bitOffset(x, y)) | state << bitOffset(x, y);
 }
 
+const wins = [
+    // Horizontal - player 1
+    [0x3f, 0x15, 1],
+    [0x3f << 6, 0x15 << 6, 1],
+    [0x3f << 12, 0x15 << 12, 1],
+
+    // Horizontal - player 2
+    [0x3f, 0x3f, 2],
+    [0x3f << 6, 0x3f << 6, 2],
+    [0x3f << 12, 0x3f << 12, 2],
+
+    // Vertical - player 1
+    [0x30c3, 0x1041, 1],
+    [0x30c3 << 2, 0x1041 << 2, 1],
+    [0x30c3 << 4, 0x1041 << 4, 1],
+
+    // Vertical - player 2
+    [0x30c3, 0x30c3, 2],
+    [0x30c3 << 2, 0x30c3 << 2, 2],
+    [0x30c3 << 4, 0x30c3 << 4, 2],
+
+    // Diagonal - player 1
+    [0x3330, 0x1110, 1],
+    [0x030303, 0x010101, 1],
+
+    // Diagonal - player 2
+    [0x030303, 0x030303, 2],
+    [0x3330, 0x3330, 2],
+];
+const numWins = wins.length;
+
 /**
  * Check for a win.
  *
@@ -69,31 +100,12 @@ function setCell(board, x, y, state) {
  * returns {boolean}
  */
 function checkWin(board) {
-    return [
-        0x15, // Horizontal - player 1
-        0x15 << 6,
-        0x15 << 12,
-        0x3f, // Horizontal - player 2
-        0x3f << 6,
-        0x3f << 12,
-        0x1041, // Vertical - player 1
-        0x1041 << 2,
-        0x1041 << 4,
-        0x30c3, // Vertical - player 2
-        0x30c3 << 2,
-        0x30c3 << 4,
-        0x1110, // Diagonal - player 1
-        0x010101,
-        0x030303, // Diagonal - player 2
-        0x3330,
-    ].some(n => (board & n) === n);
+  for (let i = 0; i < numWins; i++) {
+    if ((board & wins[i][0]) === wins[i][1]) {
+      return wins[i][2];
+    }
+  }
+  return 0;
 }
 
-module.exports = {
-    gridToIndex,
-    bitOffset,
-    getMask,
-    getCell,
-    setCell,
-    checkWin
-};
+export { bitOffset, gridToIndex, getMask, getCell, setCell, checkWin };

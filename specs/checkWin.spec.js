@@ -1,33 +1,40 @@
-const { checkWin } = require('../board');
+const { checkWin } = require('..');
 
 describe('checkWin', () => {
-    it('Check if a board is won', () => {
-        [
-            [0x00, false],
+  it('Check if a board is won', () => {
+    [
+      // Empty board
+      [0x00, 0],
 
-            [0x15, true],
-            [0x540, true],
-            [0x15000, true],
+      // Horizontal - player 1
+      [0x15, 1],
+      [0x540, 1],
+      [0x15000, 1],
 
-            [0x3f, true],
-            [0xfc0, true],
-            [0x3f000, true],
+      // Horizontal - player 2
+      [0x3f, 2],
+      [0xfc0, 2],
+      [0x3f000, 2],
 
-            [0x1041, true],
-            [0x4104, true],
-            [0x10410, true],
+      // Vertical - player 1
+      [0x1041, 1],
+      [0x4104, 1],
+      [0x10410, 1],
 
-            [0x30c3, true],
-            [0xc30c, true],
-            [0x30c3, true],
+      // Vertical - player 2
+      [0x30c3, 2],
+      [0xc30c, 2],
+      [0x30c3, 2],
 
-            [0x1110, true],
-            [0x3330, true],
+      // Diagonal - player 1
+      [0x010101, 1],
+      [0x1110, 1],
 
-            [0x010101, true],
-            [0x030303, true],
-        ].forEach((p) => {
-            expect(checkWin(p[0])).toBe(p[1]);
-        });
+      // Diagonal - player 2
+      [0x030303, 2],
+      [0x3330, 2],
+    ].forEach((p) => {
+      expect(checkWin(p[0])).toBe(p[1], p[0].toString(16));
     });
+  });
 });

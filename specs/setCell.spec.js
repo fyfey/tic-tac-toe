@@ -1,4 +1,4 @@
-const { setCell } = require('../board');
+const { setCell } = require('..');
 
 describe('setCell', () => {
     it('Sets a 1 at a grid reference', () => {
