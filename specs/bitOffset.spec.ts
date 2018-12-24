@@ -1,4 +1,4 @@
-const { bitOffset } = require('..');
+import { bitOffset } from '..';
 
 describe('bitOffset', () => {
     it('Should get the bit offset for a grid reference', () => {

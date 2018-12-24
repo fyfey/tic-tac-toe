@@ -1,4 +1,4 @@
-const { checkWin } = require('..');
+import { checkWin } from '..';
 
 describe('checkWin', () => {
   it('Check if a board is won', () => {

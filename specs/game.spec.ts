@@ -1,4 +1,4 @@
-const { setCell, checkWin } = require('..');
+import { setCell, checkWin } from '..';
 
 describe('Test game', () => {
   it('1 should win a game', () => {

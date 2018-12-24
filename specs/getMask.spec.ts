@@ -1,4 +1,4 @@
-const { getMask } = require('..');
+import { getMask } from '..';
 
 describe('getMask', () => {
     it('Should get the mask for a grid reference', () => {

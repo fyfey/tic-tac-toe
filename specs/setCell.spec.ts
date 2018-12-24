@@ -1,4 +1,4 @@
-const { setCell } = require('..');
+import { setCell } from '..';
 
 describe('setCell', () => {
     it('Sets a 1 at a grid reference', () => {

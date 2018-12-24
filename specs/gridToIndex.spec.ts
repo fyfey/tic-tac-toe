@@ -1,4 +1,4 @@
-const { gridToIndex } = require('..');
+import { gridToIndex } from '..';
 
 describe('gridToIndex', () => {
     it('Should get the index for a grid reference', () => {
