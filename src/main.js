@@ -11,6 +11,17 @@ function gridToIndex(x, y) {
 }
 
 /**
+ * Get the grid reference for an index
+ *
+ * @param {number} i
+ *
+ * returns {object}
+ */
+function indexToGrid(i) {
+    return { x: i % 3, y: Math.floor(i / 3) }
+}
+
+/**
  * Bit offset for a cell
  *
  * @param {number} x
@@ -95,9 +106,14 @@ const numWins = wins.length;
 /**
  * Check for a win.
  *
- * @param {number} board
+ * Returns:
+ *  0 | no win
+ * -1 | draw
+ *  1 | player 1 win
+ *  2 | player 2 win
  *
- * returns {boolean}
+ * @param {number} board
+ * @returns {number}
  */
 function checkWin(board) {
   for (let i = 0; i < numWins; i++) {
@@ -105,7 +121,23 @@ function checkWin(board) {
       return wins[i][2];
     }
   }
-  return 0;
+  let count = 0;
+  for (let i = 0; i < 9; i++) {
+    if ((board & (3 << (i*2))) > 0) {
+      count++;
+    }
+  }
+  return count === 9 ? -1 : 0;
 }
 
-export { bitOffset, gridToIndex, getMask, getCell, setCell, checkWin };
+function checkDraw(board) {
+    let count = 0;
+    for (let i = 0; i < 9; i++) {
+      if ((board & (3 << (i*2))) > 0) {
+        count++;
+      }
+    }
+    return count === 9 && !checkWin();
+}
+
+export { bitOffset, gridToIndex, indexToGrid, getMask, getCell, setCell, checkWin, checkDraw };

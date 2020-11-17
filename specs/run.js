@@ -1,5 +1,5 @@
 const Jasmine = require('jasmine');
-const jasmine = new Jasmine();
+let jasmine = new Jasmine();
 jasmine.loadConfig({
     spec_dir: 'test',
     spec_files: [__dirname+'/*.spec.ts'],
@@ -9,7 +9,7 @@ jasmine.loadConfig({
     stopSpecOnExpectationFailure: false
 });
 jasmine.jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000;
- 
+
 // setup console reporter
 const JasmineConsoleReporter = require('jasmine-console-reporter');
 const reporter = new JasmineConsoleReporter({

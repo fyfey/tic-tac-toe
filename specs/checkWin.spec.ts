@@ -38,3 +38,19 @@ describe('checkWin', () => {
     });
   });
 });
+describe('checkDraw', () => {
+  it('Should see that 0,2 is not set and bail', () => {
+    const board = 0x17f4d;
+
+    const result = checkWin(board)
+
+    expect(result).toBe(0);
+  });
+  it('Should detect a draw!', () => {
+    const board = 0x3775d;
+
+    const result = checkWin(board)
+
+    expect(result).toBe(-1);
+  });
+});

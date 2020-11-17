@@ -7,9 +7,9 @@ export default [
   {
     input: 'src/main.js',
     output: {
-      name: 'howLongUntilLunch',
+      name: 'TicTacToe',
       file: pkg.browser,
-      format: 'umd'
+      format: 'es'
     },
     plugins: [
       // resolve(), // so Rollup can find `ms`
