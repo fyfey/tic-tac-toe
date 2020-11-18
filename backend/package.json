@@ -1,0 +1,23 @@
+{
+  "name": "binary-socket",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.3.3",
+    "node-static": "^0.7.11",
+    "tic-tac-toe": "file:..",
+    "ws": "^6.1.2"
+  },
+  "devDependencies": {
+    "jasmine": "^3.3.1",
+    "jasmine-console-reporter": "^3.1.0"
+  }
+}

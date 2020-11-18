@@ -1,0 +1,58 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <!-- Place favicon.ico in the root directory -->
+    </head>
+    <body>
+        <script>
+            const GAME_SEARCH     = 0x00; // Server is searching for game
+            const GAME_START      = 0x01; // Server has matched
+            const GAME_QUIT       = 0x02; // Other player has left
+            const GAME_PLAYER_ONE = 0x03; // You are player one (go first)
+            const GAME_PLAYER_TWO = 0x04; // You are player two (go second)
+            const ws = new WebSocket('ws://localhost:8080');
+            ws.binaryType = 'arraybuffer';
+            ws.onmessage = function(message) {
+              const data = new Uint8Array(message.data);
+              console.log(data);
+              const type = ((data & 0x01) != 0) ? 'Move' : 'Game';
+              if (type === 'Game') {
+                switch((data & 0xfe) >> 1) {
+                  case GAME_SEARCH:
+                    console.info('Game', 'Search');
+                    break;
+                  case GAME_START:
+                    console.info('Game', 'Start');
+                    break;
+                  case GAME_QUIT:
+                    console.info('Game', 'Quit');
+                    //console.info('Closed socket');
+                    //ws.close();
+                    break;
+                  case GAME_PLAYER_ONE:
+                    console.info('Game', 'You are player one');
+                    break;
+                  case GAME_PLAYER_TWO:
+                    console.info('Game', 'You are player two');
+                    break;
+                }
+              }
+              if (type === 'Move') {
+                console.info('Move', data, {
+                  player: (((data & 0x02) >> 1) != 0) ? 1 : 0,
+                  x: (data & 0x0c) >> 2,
+                  y: (data & 0x30) >> 4
+                });
+              }
+            }
+        </script>
+    </body>
+</html>
+
