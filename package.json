@@ -1,13 +1,13 @@
 {
   "name": "tic-tac-toe",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "dist/tic-tac-toe.cjs.js",
   "module": "dist/tic-tac-toe.esm.js",
   "browser": "dist/tic-tac-toe.umd.js",
+  "types": "dist/main.d.ts",
   "scripts": {
-    "test": "ts-node specs/run",
-    "test:watch": "nodemon --exec ts-node specs/run",
+    "test": "jest ./specs/*.spec.ts",
     "build": "rollup -c",
     "watch": "rollup -c --watch"
   },
@@ -16,13 +16,17 @@
   "license": "ISC",
   "devDependencies": {
     "@types/jasmine": "^3.3.5",
+    "@types/jest": "^26.0.19",
     "jasmine": "^3.3.1",
     "jasmine-console-reporter": "^3.1.0",
+    "jest": "^26.6.3",
     "nodemon": "^1.18.8",
-    "typescript": "^3.2.2"
+    "rollup-plugin-typescript2": "^0.29.0",
+    "ts-jest": "^26.4.4",
+    "typescript": "^3.9.7"
   },
   "dependencies": {
-    "rollup": "^0.67.4",
+    "rollup": "^2.35.1",
     "ts-node": "^7.0.1"
   }
 }

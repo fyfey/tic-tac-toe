@@ -1,4 +1,4 @@
-import { setCell } from '..';
+import { setCell } from '../src/main';
 
 describe('setCell', () => {
     it('Sets a 1 at a grid reference', () => {

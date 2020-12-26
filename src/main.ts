@@ -1,3 +1,5 @@
+import { Board, GridRef } from "./interfaces";
+
 /**
  * Get the numerical index of a cell
  *
@@ -6,7 +8,7 @@
  *
  * returns {number}
  */
-function gridToIndex(x, y) {
+export function gridToIndex(x: number, y: number): number {
     return 3 * y + x;
 }
 
@@ -17,8 +19,12 @@ function gridToIndex(x, y) {
  *
  * returns {object}
  */
-function indexToGrid(i) {
+export function indexToGrid(i: number): GridRef {
     return { x: i % 3, y: Math.floor(i / 3) }
+}
+
+export function indexToGridSize(i: number, size: number): GridRef {
+    return { x: i % size, y: Math.floor(i / size) }
 }
 
 /**
@@ -29,7 +35,7 @@ function indexToGrid(i) {
  *
  * returns {number}
  */
-function bitOffset(x, y) {
+export function bitOffset(x: number, y: number): number {
     return gridToIndex(x, y) * 2;
 }
 
@@ -41,7 +47,7 @@ function bitOffset(x, y) {
  *
  * returns {number}
  */
-function getMask(x, y) {
+export function getMask(x: number, y: number): number {
     return 0x03 << bitOffset(x, y);
 }
 
@@ -54,7 +60,7 @@ function getMask(x, y) {
  *
  * returns {number}
  */
-function getCell(board, x, y) {
+export function getCell(board: Board, x: number, y: number): number {
     return (board & getMask(x, y)) >> bitOffset(x, y);
 }
 
@@ -68,7 +74,7 @@ function getCell(board, x, y) {
  *
  * returns {number}
  */
-function setCell(board, x, y, state) {
+export function setCell(board: Board, x: number, y: number, state: Board) {
     return board &~ (0x03 << bitOffset(x, y)) | state << bitOffset(x, y);
 }
 
@@ -115,7 +121,7 @@ const numWins = wins.length;
  * @param {number} board
  * @returns {number}
  */
-function checkWin(board) {
+export function checkWin(board: Board): number {
   for (let i = 0; i < numWins; i++) {
     if ((board & wins[i][0]) === wins[i][1]) {
       return wins[i][2];
@@ -130,14 +136,12 @@ function checkWin(board) {
   return count === 9 ? -1 : 0;
 }
 
-function checkDraw(board) {
+export function checkDraw(board: Board): boolean {
     let count = 0;
     for (let i = 0; i < 9; i++) {
       if ((board & (3 << (i*2))) > 0) {
         count++;
       }
     }
-    return count === 9 && !checkWin();
+    return count === 9 && checkWin(board) === -1;
 }
-
-export { bitOffset, gridToIndex, indexToGrid, getMask, getCell, setCell, checkWin, checkDraw };

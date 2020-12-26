@@ -1,4 +1,4 @@
-import { getMask } from '..';
+import { getMask } from '../src/main';
 
 describe('getMask', () => {
     it('Should get the mask for a grid reference', () => {

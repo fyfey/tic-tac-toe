@@ -1,4 +1,4 @@
-import { checkWin } from '..';
+import { checkWin } from '../src/main';
 
 describe('checkWin', () => {
   it('Check if a board is won', () => {

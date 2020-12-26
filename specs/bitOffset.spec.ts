@@ -1,4 +1,4 @@
-import { bitOffset } from '..';
+import { bitOffset } from '../src/main';
 
 describe('bitOffset', () => {
     it('Should get the bit offset for a grid reference', () => {

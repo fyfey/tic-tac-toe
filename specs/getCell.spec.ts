@@ -1,4 +1,4 @@
-import { getCell } from '..';
+import { getCell } from '../src/main';
 
 describe('getCell', () => {
     it('Should get the cell state from the board at 2,0', () => {

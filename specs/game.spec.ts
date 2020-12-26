@@ -1,4 +1,4 @@
-import { setCell, checkWin } from '..';
+import { setCell, checkWin } from '../src/main';
 
 describe('Test game', () => {
   it('1 should win a game', () => {
@@ -18,8 +18,6 @@ describe('Test game', () => {
     expect(checkWin(board)).toBe(0);
     board = setCell(board, 2, 2, 1);
     expect(checkWin(board)).toBe(1);
-
-    console.log(board);
   });
   it('2 should win a game', () => {
     let board = 0;
@@ -38,7 +36,5 @@ describe('Test game', () => {
     expect(checkWin(board)).toBe(0);
     board = setCell(board, 2, 2, 3);
     expect(checkWin(board)).toBe(2);
-
-    console.log(board);
   });
 });

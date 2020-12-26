@@ -1,4 +1,4 @@
-import { gridToIndex } from '..';
+import { gridToIndex } from '../src/main';
 
 describe('gridToIndex', () => {
     it('Should get the index for a grid reference', () => {
