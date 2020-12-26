@@ -7,7 +7,7 @@
   "browser": "dist/tic-tac-toe.umd.js",
   "types": "dist/main.d.ts",
   "scripts": {
-    "test": "jest ./specs/*.spec.ts",
+    "test": "jest ./specs/*.spec.ts --verbose",
     "build": "rollup -c",
     "watch": "rollup -c --watch"
   },
