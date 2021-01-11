@@ -1,0 +1,42 @@
+{
+  "name": "tic-tac-toe",
+  "version": "1.0.1",
+  "description": "",
+  "main": "dist/tic-tac-toe.cjs.js",
+  "module": "dist/tic-tac-toe.esm.js",
+  "browser": "dist/tic-tac-toe.umd.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "ts-node src/main.ts",
+    "test": "jest ./specs/*.spec.ts ./src/**/*.spec.ts --verbose",
+    "build": "rollup -c",
+    "watch": "rollup -c --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jasmine": "^3.3.5",
+    "@types/jest": "^26.0.19",
+    "@types/node": "^14.14.16",
+    "@types/node-static": "^0.7.5",
+    "@types/uuid": "^8.3.0",
+    "@types/ws": "^7.4.0",
+    "jasmine": "^3.3.1",
+    "jasmine-console-reporter": "^3.1.0",
+    "jest": "^26.6.3",
+    "nodemon": "^1.18.8",
+    "rollup": "^2.35.1",
+    "rollup-plugin-typescript2": "^0.29.0",
+    "ts-jest": "^26.4.4",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {
+    "buffer": "^6.0.3",
+    "colors": "^1.4.0",
+    "node-static": "^0.7.11",
+    "rxjs": "^6.6.3",
+    "uuid": "^8.3.2"
+  }
+}
