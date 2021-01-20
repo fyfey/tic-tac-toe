@@ -1,57 +1,70 @@
-export const readChar = (bytes: number, offset: number): string => {
-    return String.fromCharCode((bytes >> (offset * 8)) & 0xff);
+import { Buffer } from 'buffer';
+
+export const readChar = (bytes: Buffer, offset: number): string => {
+    return String.fromCharCode(readByte(bytes, offset));
+};
+export const readByte = (bytes: Buffer, offset: number): number => {
+    return bytes[offset];
+};
+export const writeByte = (
+    bytes: Buffer,
+    offset: number,
+    byte: number
+): Buffer => {
+    bytes[offset] = byte;
+    return bytes;
 };
 export const writeChar = (
-    bytes: number,
+    bytes: Buffer,
     offset: number,
     char: string
-): number => {
-    return bytes | (char.charCodeAt(0) << (offset * 8));
+): Buffer => {
+    bytes[offset] = char.charCodeAt(0);
+    return bytes;
 };
-export const readInt = (bytes: number, offset: number): number => {
-    return (bytes >> (offset * 8)) & 0xff;
+export const readInt = (bytes: Buffer, offset: number): number => {
+    return bytes.readUInt32LE(offset);
 };
-export const writeInt = (bytes: number, offset: number, int: number) => {
-    return bytes | (int << (offset * 8));
+export const writeInt = (bytes: Buffer, offset: number, int: number) => {
+    bytes.writeUInt32LE(int, offset);
+    return bytes;
 };
 
-export const readString = (bytes: number, offset: number): string => {
-    const length = (bytes >> (offset * 8)) & 0xff;
-    console.log('LENGTH', length);
+export const readString = (bytes: Buffer, offset: number): string => {
     let str = '';
-    for (let i = offset + 1; i < length + offset + 1; i++) {
+    for (let i = offset; true; i++) {
+        if (readByte(bytes, i) === 0x00) {
+            break;
+        }
         str += readChar(bytes, i);
     }
     return str;
 };
 export const writeString = (
-    bytes: number,
+    bytes: Buffer,
     offset: number,
     str: string
-): number => {
-    bytes = writeInt(bytes, offset++, str.length);
-    for (let i = 0; i < str.length; i++) {
+): Buffer => {
+    let i = 0;
+    for (; i < str.length; i++) {
         bytes = writeChar(bytes, offset + i, str[i]);
     }
+    bytes = writeByte(bytes, offset + i + 1, 0x00);
     return bytes;
 };
 export const writeUuid = (
-    bytes: number,
+    bytes: Buffer,
     offset: number,
     uuid: string
-): number => {
+): Buffer => {
     const b = uuid.replace(/-/g, '');
     for (let i = 0; i < 32; i += 2) {
-        bytes |=
-            parseInt(b.slice(i, i + 2), 16) << (Math.floor((i + 1) / 2) * 8);
+        bytes.write(b.slice(i, i + 2), Math.floor((offset + i + 1) / 2), 'hex');
     }
     return bytes;
 };
-export const readUuid = (bytes: number, offset: number): string => {
-    let str = '';
-    for (let i = 0; i < 16; i++) {
-        str += ((bytes >> (i * 8)) & 0xff).toString(16);
-    }
+export const readUuid = (bytes: Buffer, offset: number): string => {
+    let str = bytes.toString('hex', offset, offset + 16);
     return str.replace(
         /([0-9A-Fa-f]{8})([0-9A-Fa-f]{4})([0-9A-Fa-f]{4})([0-9A-Fa-f]{4})([0-9A-Fa-f]{12})/g,
         '$1-$2-$3-$4-$5'

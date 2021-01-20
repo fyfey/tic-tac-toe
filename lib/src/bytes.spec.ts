@@ -2,20 +2,26 @@ import { readUuid, writeChar, writeInt, writeString, writeUuid } from './bytes';
 
 describe('bytes', () => {
     it('writeInt', () => {
-        expect(writeInt(0x00, 0, 1)).toBe(0x01);
-        expect(writeInt(0x00, 1, 1)).toBe(0x0100);
-        expect(writeInt(0x01, 1, 1)).toBe(0x0101);
+        expect(writeInt(Buffer.alloc(4), 0, 1)[0]).toBe(0x01);
+        expect(writeInt(Buffer.alloc(8), 4, 1).toString('hex')).toBe(
+            '0000000001000000'
+        );
+        expect(writeInt(Buffer.alloc(8), 4, 1).toString('hex')).toBe(
+            '0000000001000000'
+        );
     });
     it('writeChar', () => {
-        expect(writeChar(0x00, 0, 'a')).toBe(0x61);
+        expect(writeChar(Buffer.alloc(1), 0, 'a')[0]).toBe(0x61);
     });
     it('writeString', () => {
-        expect(writeString(0x00, 0, 'abc')).toBe(0x63626103);
+        expect(writeString(Buffer.alloc(3), 0, 'abc').toString('hex')).toBe(
+            '616263'
+        );
     });
     it('read/writeUUid', () => {
         const input = '43d597d7-2323-325a-90fc-21fa5947b9f3';
 
-        const bytes = writeUuid(0x00, 0x00, input);
+        const bytes = writeUuid(Buffer.alloc(16), 0x00, input);
         const decoded = readUuid(bytes, 0x00);
 
         expect(decoded).toBe(input);

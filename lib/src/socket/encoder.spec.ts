@@ -1,11 +1,7 @@
 import { MessageType, PlayerNumber } from '../protocol';
-import { Encoder } from './encoder';
+import { encode } from './encoder';
 
 describe('Encoder', () => {
-    let sut: Encoder;
-    beforeEach(() => {
-        sut = new Encoder();
-    });
     it('GAME_MOVE', () => {
         const message = {
             type: MessageType.GAME_MOVE,
@@ -16,7 +12,7 @@ describe('Encoder', () => {
             },
         };
 
-        const packet = sut.encode(message);
+        const packet = encode(message);
 
         expect(packet).toBe(0x3030000);
     });
@@ -28,8 +24,21 @@ describe('Encoder', () => {
             },
         };
 
-        const packet = sut.encode(message);
+        const packet = encode(message);
 
-        expect(packet).toBe(0x69480201);
+        expect(packet).toBe(0x00694801);
+    });
+    it('LOBBY_PLAYER_JOIN', () => {
+        const message = {
+            type: MessageType.LOBBY_PLAYER_JOIN,
+            payload: {
+                name: 'Hi',
+                socketId: '',
+            },
+        };
+
+        const packet = encode(message);
+
+        expect(packet).toBe(0x00694801);
     });
 });

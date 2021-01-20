@@ -3,6 +3,7 @@
         "declaration": true,
         "inlineSourceMap": true,
         "noImplicitAny": true,
+        "moduleResolution": "node",
         "module": "ESNext",
         "target": "es5",
         "outDir": "lib"

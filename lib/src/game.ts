@@ -71,20 +71,16 @@ export class Game extends EventEmitter {
         this.broadcast({ type: GAME_START });
         this.one.send({ type: GAME_PLAYER_ONE });
         this.two.send({ type: GAME_PLAYER_TWO });
-        this.one.socket
-            .onMessage()
-            .subscribe((msg: SocketMessage<any>) =>
-                this.handleMessage(this.one, msg, GAME_WIN_ONE)
-            );
-        this.two.socket
-            .onMessage()
-            .subscribe((msg: SocketMessage<any>) =>
-                this.handleMessage(this.two, msg, GAME_WIN_TWO)
-            );
+        this.one.socket.onMessage().subscribe((msg: Buffer) => {
+            this.handleMessage(this.one, msg, GAME_WIN_ONE);
+        });
+        this.two.socket.onMessage().subscribe((msg: Buffer) => {
+            this.handleMessage(this.two, msg, GAME_WIN_TWO);
+        });
         this.handleClose(this.one, this.two);
         this.handleClose(this.two, this.one);
     }
-    handleMessage(player: Player, msg: SocketMessage<any>, winPacket: number) {
+    handleMessage(player: Player, msg: Buffer, winPacket: number) {
         if (!this.active) {
             this.logger.error('Game inactive, ignore message');
             return;
