@@ -8,7 +8,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "dev": "ts-node src/main.ts",
-    "test": "jest ./specs/*.spec.ts ./src/*.spec.ts --verbose",
+    "test": "jest --verbose",
     "build": "rollup -c",
     "watch": "rollup -c --watch"
   },

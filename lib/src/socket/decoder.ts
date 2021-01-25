@@ -1,20 +1,33 @@
-import { readInt, readString } from '../bytes';
+import { Buffer } from 'buffer';
+import { readInt, readString, readUuid } from '../bytes';
 import { PacketMap, SocketMessage, Type } from '../protocol';
 
-export function decode(message: number): SocketMessage<any> {
+export function decode(message: Buffer): SocketMessage<any> {
+    let offset = 4;
     return {
-        type: message & 0xff,
-        payload: PacketMap[message & 0xff].reduce((acc, val, idx) => {
+        type: readInt(message, 0),
+        payload: PacketMap[readInt(message, 0)].reduce((acc, val, idx) => {
             switch (val.type) {
                 case Type.Int:
+                    const i = readInt(message, offset);
+                    offset += 4;
                     return {
                         ...acc,
-                        [val.name]: readInt(message, idx + 1),
+                        [val.name]: i,
                     };
                 case Type.String:
+                    const str = readString(message, offset);
+                    offset += str.length + 1;
                     return {
                         ...acc,
-                        [val.name]: readString(message, idx + 1),
+                        [val.name]: str,
+                    };
+                case Type.Uuid:
+                    const uuid = readUuid(message, offset);
+                    offset += 16;
+                    return {
+                        ...acc,
+                        [val.name]: uuid,
                     };
             }
         }, {}),

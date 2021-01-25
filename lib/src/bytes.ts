@@ -32,7 +32,7 @@ export const writeInt = (bytes: Buffer, offset: number, int: number) => {
 
 export const readString = (bytes: Buffer, offset: number): string => {
     let str = '';
-    for (let i = offset; true; i++) {
+    for (let i = offset; i < 255; i++) {
         if (readByte(bytes, i) === 0x00) {
             break;
         }

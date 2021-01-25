@@ -14,7 +14,7 @@ describe('Encoder', () => {
 
         const packet = encode(message);
 
-        expect(packet).toBe(0x3030000);
+        expect(packet.toString('hex')).toBe('00000000000000000300000003000000');
     });
     it('LOBBY_SET_USERNAME', () => {
         const message = {
@@ -26,19 +26,21 @@ describe('Encoder', () => {
 
         const packet = encode(message);
 
-        expect(packet).toBe(0x00694801);
+        expect(packet.toString('hex')).toBe('01000000486900');
     });
     it('LOBBY_PLAYER_JOIN', () => {
         const message = {
             type: MessageType.LOBBY_PLAYER_JOIN,
             payload: {
                 name: 'Hi',
-                socketId: '',
+                socketId: '43d597d7-2323-325a-90fc-21fa5947b9f3',
             },
         };
 
         const packet = encode(message);
 
-        expect(packet).toBe(0x00694801);
+        expect(packet.toString('hex')).toBe(
+            '0200000048690043d597d72323325a90fc21fa5947b9f3'
+        );
     });
 });
